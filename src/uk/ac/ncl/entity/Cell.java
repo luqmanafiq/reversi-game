@@ -120,20 +120,19 @@ public class Cell {
         for (int[] dir : DIRS){
             int temp_score = 0;
             Cell cell = IsOnBoard(this.getRow() + dir[0], this.getColumn() + dir[1]) ? cells[this.getRow() + dir[0]][this.getColumn() + dir[1]] : null;
-            if (cell != null
-                    && cell.getValue() != CellStatus.EMPTY
-                    && cell.getValue() == opponent) {
+            if (cell != null && cell.getValue() == opponent) {
                 while (true){
                     cell = IsOnBoard(cell.row + dir[0],cell.column + dir[1]) ? cells[cell.row + dir[0]][cell.column + dir[1]] :  null;
-                    temp_score += 1;
-                    if (!(cell != null
-                            && cell.getValue() != CellStatus.EMPTY)){
+
+                    if (cell == null || cell.getValue() == CellStatus.EMPTY) {
+                        break;
+
+                    }
+                        temp_score++;
                         if (cell.getValue() == colour) {
                             score += temp_score;
                             moves.add(new DirectedMove(cell, dir));
-                        }
-                    } else {
-                        break;
+                            break;
                     }
                 }
             }
@@ -146,7 +145,8 @@ public class Cell {
 
     /**
      * Checks whether the cell is on board.
-     *
+     * @param column
+     * @param row
      * @return true if the cell index is inside board boundaries
      */
     private boolean IsOnBoard(int row, int column){
