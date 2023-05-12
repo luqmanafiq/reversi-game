@@ -18,24 +18,24 @@ import static uk.ac.ncl.Constants.BOARD_SIZE;
 public class Cell {
 
     /**
-     * Current cell status.
+            * Current cell status.
      */
     private CellStatus value;
     /**
-     * Links cell to the corresponding UI element.
+            * Links cell to the corresponding UI element.
      */
     private JButton jButton;
     /**
-     * Cell's row
-     */
+            * Cell's row
+            */
     private int row;
     /**
-     *  Cell's column
-     */
+            *  Cell's column
+            */
     private int column;
 
     /**
-     *  Potential moves of the piece
+            *  Potential moves of the piece
      */
     private Move move;
 
@@ -52,8 +52,8 @@ public class Cell {
     }
 
     /**
-     *   Changes button's design to have an effect of the "pressed" button
-     */
+            *   Changes button's design to have an effect of the "pressed" button
+            */
     public void colourTemp(Color colour, boolean isPressed){
         this.jButton.setBackground(colour);
         if (isPressed) {
@@ -66,10 +66,10 @@ public class Cell {
     }
 
     /**
-     *   Updates the status of the cell
+            *   Updates the status of the cell
      */
     public void setValue(CellStatus value) {
-        value = this.value;
+        this.value=value;
         switch (value){
             case EMPTY:
                 this.jButton.setBackground(new Color(820000));
@@ -105,9 +105,9 @@ public class Cell {
     }
 
     /**
-     * Checks whether there exists a legal move for the piece.
-     * If such a move exists, returns true and adds information to the piece.
-     * @param colour - colour of the current player
+            * Checks whether there exists a legal move for the piece.
+            * If such a move exists, returns true and adds information to the piece.
+            * @param colour - colour of the current player
      * @param cells - current information about the board
      * @return whether move is possible for the piece. If this is the case, then possible moves are stored in Piece.
      */
@@ -120,19 +120,20 @@ public class Cell {
         for (int[] dir : DIRS){
             int temp_score = 0;
             Cell cell = IsOnBoard(this.getRow() + dir[0], this.getColumn() + dir[1]) ? cells[this.getRow() + dir[0]][this.getColumn() + dir[1]] : null;
-            if (cell != null && cell.getValue() == opponent) {
+            if (cell != null
+                    && cell.getValue() != CellStatus.EMPTY
+                    && cell.getValue() == opponent) {
                 while (true){
                     cell = IsOnBoard(cell.row + dir[0],cell.column + dir[1]) ? cells[cell.row + dir[0]][cell.column + dir[1]] :  null;
-
-                    if (cell == null || cell.getValue() == CellStatus.EMPTY) {
-                        break;
-
-                    }
-                        temp_score++;
+                    temp_score += 1;
+                    if (cell != null
+                            && cell.getValue() != CellStatus.EMPTY){
                         if (cell.getValue() == colour) {
                             score += temp_score;
                             moves.add(new DirectedMove(cell, dir));
-                            break;
+                        }
+                    } else {
+                        break;
                     }
                 }
             }
@@ -140,13 +141,11 @@ public class Cell {
 
         Move move = new Move(moves, score);
         this.setMove(move);
-        return moves.isEmpty();
+        return !moves.isEmpty();
     }
-
     /**
      * Checks whether the cell is on board.
-     * @param column
-     * @param row
+     *
      * @return true if the cell index is inside board boundaries
      */
     private boolean IsOnBoard(int row, int column){

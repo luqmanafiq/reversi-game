@@ -42,11 +42,9 @@ class MoveCheckerTest {
 
         assertTrue(cells[2][4] == cell || cells[3][5] == cell ||
                 cells[4][2] == cell || cells[5][3] == cell);
-
         assertTrue(cell.getMove() != null);
         assertTrue(cell.getMove().getMoves().size() == 1);
         assertTrue(cell.getMove().getScore() == 1);
-
     }
 
     @Test
@@ -55,15 +53,14 @@ class MoveCheckerTest {
 
         assertTrue(cells[2][3] == cell || cells[3][2] == cell ||
                 cells[4][5] == cell || cells[5][4] == cell);
-
         assertTrue(cell.getMove() != null);
         assertTrue(cell.getMove().getMoves().size() == 1);
         assertTrue(cell.getMove().getScore() == 1);
-
     }
 
     @Test
-    void flipCheckers() {
+    void
+    flipCheckers() {
         cells[5][3].isLegal(CellStatus.DARK, this.cells);
         moveChecker.flipPieces(cells[5][3], CellStatus.DARK);
         assertTrue(cells[4][3].getValue() == CellStatus.DARK);
@@ -89,7 +86,7 @@ class MoveCheckerTest {
         piecesToColour.add(cells[3][5]);
         piecesToColour.add(cells[4][2]);
         piecesToColour.add(cells[5][3]);
-        moveChecker.colourPieces(piecesToColour, CellStatus.GRAY);
+        moveChecker.colourPieces(piecesToColour, testColour);
         assertTrue(cells[2][4].getValue() == testColour);
         assertTrue(cells[3][5].getValue() == testColour);
         assertTrue(cells[4][2].getValue() == testColour);
@@ -115,7 +112,6 @@ class MoveCheckerTest {
         assertTrue(cells[4][2].getMove() == null);
         assertTrue(cells[5][3].getMove() == null);
     }
-
     @Test
     void testIsLegal(){
         assertTrue(cells[5][3].isLegal(CellStatus.DARK, this.cells));

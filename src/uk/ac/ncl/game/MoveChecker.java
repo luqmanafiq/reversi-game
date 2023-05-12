@@ -44,6 +44,7 @@ public class MoveChecker {
         return opponentsMove;
     }
 
+
     /**
      * Flips pieces between selected piece in directions of valid moves.
      *
@@ -107,7 +108,7 @@ public class MoveChecker {
         int darks = 0;
 
         for (int row = 0; row < BOARD_SIZE; row++) {
-            for (Cell cell : this.cells[row++]) {
+            for (Cell cell : this.cells[row]) {
                 if (cell.getValue() == CellStatus.DARK) {
                     darks++;
                 } else if (cell.getValue() == CellStatus.LIGHT) {
@@ -117,10 +118,10 @@ public class MoveChecker {
         }
 
         if (darks == lights) {
-            return "The game is over. It is a draw. Each player has " + darks + " pieces";
+            return "The game is over. It is a draw. Each player has " + darks + " pieces"; //commented
         } else {
-            String winner = darks < lights ? "Dark" : "Light";
-            return "The game is over." + winner + " has won with the result: Dark - " + darks + " Light - " + lights;
+            String winner = darks < lights ? "Light" : "Dark" ;
+            return "The game is over. " + winner + " has won with the result: Dark - " + darks + " Light - " + lights;
         }
     }
 
@@ -137,4 +138,5 @@ public class MoveChecker {
             cell.setMove(null);
         }
     }
+
 }
