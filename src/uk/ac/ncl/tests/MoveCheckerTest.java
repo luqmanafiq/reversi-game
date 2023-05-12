@@ -42,11 +42,11 @@ class MoveCheckerTest {
 
         assertTrue(cells[2][4] == cell || cells[3][5] == cell ||
                 cells[4][2] == cell || cells[5][3] == cell);
-        if (cell != null) {
-            assertTrue(cell.getMove() != null);
-            assertTrue(cell.getMove().getMoves().size() == 1);
-            assertTrue(cell.getMove().getScore() == 1);
-        }
+
+        assertTrue(cell.getMove() != null);
+        assertTrue(cell.getMove().getMoves().size() == 1);
+        assertTrue(cell.getMove().getScore() == 1);
+
     }
 
     @Test
@@ -55,11 +55,11 @@ class MoveCheckerTest {
 
         assertTrue(cells[2][3] == cell || cells[3][2] == cell ||
                 cells[4][5] == cell || cells[5][4] == cell);
-        if (cell != null) {
-            assertTrue(cell.getMove() != null);
-            assertTrue(cell.getMove().getMoves().size() == 1);
-            assertTrue(cell.getMove().getScore() == 1);
-        }
+
+        assertTrue(cell.getMove() != null);
+        assertTrue(cell.getMove().getMoves().size() == 1);
+        assertTrue(cell.getMove().getScore() == 1);
+
     }
 
     @Test
@@ -73,7 +73,8 @@ class MoveCheckerTest {
     @Test
     void findPotentialMoves() {
         ArrayList<Cell> grayCells = moveChecker.findPotentialMoves(CellStatus.DARK);
-        assertFalse(grayCells.size() == 4);
+        System.out.println(grayCells);
+        assertTrue(grayCells.size() == 4);
         assertTrue(grayCells.contains(cells[2][4]));
         assertTrue(grayCells.contains(cells[3][5]));
         assertTrue(grayCells.contains(cells[4][2]));
@@ -88,7 +89,7 @@ class MoveCheckerTest {
         piecesToColour.add(cells[3][5]);
         piecesToColour.add(cells[4][2]);
         piecesToColour.add(cells[5][3]);
-        moveChecker.colourPieces(piecesToColour, testColour);
+        moveChecker.colourPieces(piecesToColour, CellStatus.GRAY);
         assertTrue(cells[2][4].getValue() == testColour);
         assertTrue(cells[3][5].getValue() == testColour);
         assertTrue(cells[4][2].getValue() == testColour);
