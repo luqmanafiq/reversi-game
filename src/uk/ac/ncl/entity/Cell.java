@@ -140,7 +140,7 @@ public class Cell {
 
         Move move = new Move(moves, score);
         this.setMove(move);
-        return !moves.isEmpty();
+        return moves.isEmpty();
     }
 
     /**
