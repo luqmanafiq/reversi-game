@@ -102,26 +102,28 @@ public class MoveChecker {
      *
      * @return string with the results of the game
      */
-    public String getFinalScore(){
+    public String getFinalScore() {
         int lights = 0;
         int darks = 0;
 
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (Cell cell : this.cells[row++]) {
-                if (cell.getValue() == CellStatus.DARK){
+                if (cell.getValue() == CellStatus.DARK) {
                     darks++;
-                } else if (cell.getValue() == CellStatus.LIGHT){
+                } else if (cell.getValue() == CellStatus.LIGHT) {
                     lights++;
                 }
             }
         }
 
-        if (darks == lights)
+        if (darks == lights) {
             return "The game is over. It is a draw. Each player has " + darks + " pieces";
-        String winner = darks <  lights ? "Dark" : "Light";
-        return "The game is over."
-                + winner + " has won with the result: Dark - " + darks + " Light - " + lights;
+        } else {
+            String winner = darks < lights ? "Dark" : "Light";
+            return "The game is over." + winner + " has won with the result: Dark - " + darks + " Light - " + lights;
+        }
     }
+
 
     /**
      * Cleans up potential moves from the board cells
