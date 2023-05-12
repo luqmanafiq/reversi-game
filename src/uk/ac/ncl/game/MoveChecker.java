@@ -36,9 +36,10 @@ public class MoveChecker {
         ArrayList<Cell> potentialMoves = findPotentialMoves(cellStatus);
         Cell opponentsMove = null;
         for (Cell cell : potentialMoves) {
-            if (cell.getMove() != null && (opponentsMove == null || cell.getMove().getScore() > opponentsMove.getMove().getScore())) {
-                opponentsMove = cell;
-            }
+            opponentsMove = opponentsMove == null
+                    || cell.getMove().getScore() > opponentsMove.getMove().getScore()
+                    ? cell
+                    : opponentsMove;
         }
         return opponentsMove;
     }
@@ -74,8 +75,10 @@ public class MoveChecker {
         ArrayList<Cell> potentialMoves = new ArrayList<Cell>();
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (Cell cell : this.cells[i]) {
-                if (cell != null && cell.getValue() == CellStatus.EMPTY && cell.isLegal(colour, cells)) {
-                    potentialMoves.add(cell);
+                if (cell.getValue() == CellStatus.EMPTY) {
+                    if (cell.isLegal(colour, cells)) {
+                        potentialMoves.add(cell);
+                    }
                 }
             }
         }
@@ -89,7 +92,7 @@ public class MoveChecker {
      * @param colour - new colour
      */
     public void colourPieces(ArrayList<Cell> cells, CellStatus colour) {
-        for (int i = 0; i < cells.size() - 1; i++){
+        for (int i = 0; i < cells.size(); i++){
             cells.get(i).setValue(colour);
         }
     }
