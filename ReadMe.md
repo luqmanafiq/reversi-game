@@ -1,8 +1,3 @@
----
-title: Reversi
-author: Umer Saleem, Kostiantyn Potomkin
----
-
 Reversi is a strategic board game. Each player has pieces with a
 specific colour (light and dark).  The objective of the game is to have
 more pieces on the board than the opponent by the end of the game.
@@ -35,3 +30,4 @@ and these rules will be assumed while marking your assessments.
 
 You might also want to play Reversi
 [online](https://cardgames.io/reversi/) to get used to its rules.  
+
